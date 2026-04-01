@@ -1,0 +1,2195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Good Friday — He Died That We May Live</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --black: #050205;
+        --deep: #0d0508;
+        --crimson: #8b0000;
+        --blood: #6b0000;
+        --gold: #c9a55a;
+        --gold-lt: #f0d080;
+        --gold-glow: #e8c97a;
+        --parchment: #f5e6c8;
+        --cream: #edddb0;
+        --ash: #c4b090; /* lifted — was too dark */
+        --muted: #b8a882;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* ─── CUSTOM CURSOR ─────────────────────────────────── */
+      * {
+        cursor: none !important;
+      }
+
+      #cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99999;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 14px 4px rgba(201, 165, 90, 0.7);
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.08s,
+          opacity 0.2s,
+          width 0.2s,
+          height 0.2s,
+          background 0.2s;
+        mix-blend-mode: screen;
+      }
+      #cursor-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99998;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(201, 165, 90, 0.55);
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          opacity 0.3s,
+          width 0.3s,
+          height 0.3s;
+      }
+      #cursor-trail {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99997;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(201, 165, 90, 0.25);
+        transform: translate(-50%, -50%);
+        transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      body.cursor-hover #cursor-dot {
+        width: 16px;
+        height: 16px;
+        background: var(--gold-lt);
+      }
+      body.cursor-hover #cursor-ring {
+        width: 52px;
+        height: 52px;
+        border-color: rgba(232, 201, 122, 0.8);
+      }
+      body.cursor-click #cursor-dot {
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+
+      /* ─── LOADER ─────────────────────────────────────────── */
+      #loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #030103;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        transition:
+          opacity 0.9s 0.2s,
+          visibility 0.9s 0.2s;
+      }
+      #loader.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loader-cross {
+        position: relative;
+        width: 80px;
+        height: 120px;
+        margin-bottom: 28px;
+      }
+      .loader-cross .lv {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 4px;
+        height: 120px;
+        transform: translateX(-50%);
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--gold),
+          var(--crimson),
+          transparent
+        );
+        box-shadow: 0 0 18px rgba(201, 165, 90, 0.5);
+        animation: loaderBeamV 2s ease-in-out infinite;
+      }
+      .loader-cross .lh {
+        position: absolute;
+        top: 34px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          var(--crimson),
+          transparent
+        );
+        box-shadow: 0 0 18px rgba(201, 165, 90, 0.5);
+        animation: loaderBeamH 2s ease-in-out infinite;
+      }
+      .loader-cross .inri {
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Cinzel", serif;
+        font-size: 0.52rem;
+        letter-spacing: 0.28em;
+        color: rgba(201, 165, 90, 0.5);
+        white-space: nowrap;
+      }
+      @keyframes loaderBeamV {
+        0%,
+        100% {
+          box-shadow: 0 0 10px rgba(201, 165, 90, 0.4);
+        }
+        50% {
+          box-shadow:
+            0 0 32px rgba(201, 165, 90, 0.9),
+            0 0 60px rgba(139, 0, 0, 0.5);
+        }
+      }
+      @keyframes loaderBeamH {
+        0%,
+        100% {
+          box-shadow: 0 0 10px rgba(201, 165, 90, 0.4);
+        }
+        50% {
+          box-shadow:
+            0 0 32px rgba(201, 165, 90, 0.9),
+            0 0 60px rgba(139, 0, 0, 0.5);
+        }
+      }
+
+      .loader-verse {
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 1.05rem;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+        text-align: center;
+        max-width: 340px;
+        line-height: 1.7;
+        animation: loaderVerseFade 3s ease-in-out infinite;
+      }
+      .loader-ref {
+        margin-top: 6px;
+        font-family: "Cinzel", serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.25em;
+        color: var(--gold);
+        opacity: 0.65;
+        animation: loaderVerseFade 3s ease-in-out infinite;
+      }
+      @keyframes loaderVerseFade {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .loader-bar-wrap {
+        margin-top: 32px;
+        width: 200px;
+        height: 2px;
+        background: rgba(201, 165, 90, 0.12);
+        overflow: hidden;
+        position: relative;
+      }
+      .loader-bar {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--blood),
+          var(--gold),
+          var(--gold-lt)
+        );
+        box-shadow: 0 0 12px rgba(201, 165, 90, 0.6);
+        width: 0%;
+        transition: width 0.1s linear;
+      }
+
+      /* ─── BODY HIDDEN WHILE LOADING ─── */
+      body.loading
+        > *:not(#loader):not(#cursor-dot):not(#cursor-ring):not(#cursor-trail) {
+        visibility: hidden;
+      }
+
+      body {
+        background: var(--black);
+        color: var(--parchment);
+        font-family: "Crimson Text", Georgia, serif;
+        font-size: 18px;
+        overflow-x: hidden;
+      }
+
+      /* ─── NAV ─────────────────────────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        padding: 16px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(
+          to bottom,
+          rgba(5, 2, 5, 0.97),
+          transparent
+        );
+        transition:
+          background 0.4s,
+          backdrop-filter 0.4s;
+      }
+      nav.scrolled {
+        background: rgba(5, 2, 5, 0.96);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(201, 165, 90, 0.12);
+      }
+      .nav-logo {
+        font-family: "Cinzel", serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.25em;
+        color: var(--gold);
+        text-transform: uppercase;
+      }
+      .nav-links {
+        display: flex;
+        gap: 28px;
+      }
+      .nav-links a {
+        font-family: "Cinzel", serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition:
+          color 0.3s,
+          letter-spacing 0.3s;
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--gold);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+        letter-spacing: 0.22em;
+      }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: none;
+        padding: 4px;
+        background: none;
+        border: none;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--gold);
+        transition: 0.3s;
+      }
+
+      /* ─── RIPPLE CANVAS ─── */
+      #ripple-canvas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.6;
+      }
+
+      /* ─── HERO ─────────────────────────────────────────────── */
+      #hero {
+        position: relative;
+        height: 100vh;
+        min-height: 580px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: radial-gradient(
+          ellipse at 50% 30%,
+          #2d0a0a 0%,
+          #130306 45%,
+          #050205 100%
+        );
+      }
+      #hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          var(--blood) 30%,
+          var(--crimson) 50%,
+          var(--blood) 70%,
+          transparent 100%
+        );
+        box-shadow: 0 0 40px rgba(139, 0, 0, 0.9);
+      }
+
+      /* parallax cross */
+      .hero-cross-wrap {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -56%);
+        pointer-events: none;
+        z-index: 1;
+      }
+      .hero-cross-svg {
+        width: min(260px, 42vw);
+        opacity: 0.18;
+        filter: drop-shadow(0 0 50px rgba(201, 165, 90, 0.5));
+        animation: crossBreath 6s ease-in-out infinite;
+      }
+      @keyframes crossBreath {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 50px rgba(201, 165, 90, 0.5));
+          opacity: 0.18;
+        }
+        50% {
+          filter: drop-shadow(0 0 90px rgba(201, 165, 90, 0.85));
+          opacity: 0.28;
+        }
+      }
+
+      .light-rays {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1000px;
+        height: 1000px;
+        pointer-events: none;
+        z-index: 0;
+        background: conic-gradient(
+          from 180deg at 50% 0%,
+          transparent 0deg,
+          rgba(201, 165, 90, 0.06) 12deg,
+          transparent 24deg,
+          rgba(201, 165, 90, 0.05) 40deg,
+          transparent 56deg,
+          rgba(201, 165, 90, 0.07) 75deg,
+          transparent 95deg,
+          rgba(201, 165, 90, 0.05) 115deg,
+          transparent 135deg,
+          rgba(201, 165, 90, 0.06) 160deg,
+          transparent 180deg
+        );
+        animation: rayRotate 80s linear infinite;
+      }
+      @keyframes rayRotate {
+        to {
+          transform: translateX(-50%) rotate(360deg);
+        }
+      }
+
+      .hero-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 20%,
+          rgba(5, 2, 5, 0.6) 65%,
+          rgba(5, 2, 5, 0.96) 100%
+        );
+      }
+      #particles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+      }
+      .p-dot {
+        position: absolute;
+        border-radius: 50%;
+        background: var(--gold);
+        opacity: 0;
+        animation: fall linear infinite;
+      }
+      @keyframes fall {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px) scale(0.5);
+        }
+        15% {
+          opacity: 0.6;
+        }
+        85% {
+          opacity: 0.2;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(100vh) scale(0.3);
+        }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        padding: 0 24px;
+      }
+      .hero-tag {
+        font-family: "Cinzel", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.42em;
+        color: var(--gold-lt);
+        text-transform: uppercase;
+        margin-bottom: 22px;
+        animation: fadeDown 0.8s ease both;
+      }
+      .hero-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(2.8rem, 7.5vw, 6.5rem);
+        font-weight: 900;
+        line-height: 1.05;
+        color: var(--parchment);
+        text-shadow:
+          0 0 80px rgba(201, 165, 90, 0.4),
+          0 4px 40px rgba(0, 0, 0, 0.95);
+        animation: fadeDown 0.9s 0.12s ease both;
+      }
+      .hero-title span {
+        color: var(--gold-lt);
+        display: inline-block;
+      }
+      .hero-sub {
+        margin-top: 8px;
+        font-family: "Cinzel", serif;
+        font-size: clamp(0.72rem, 1.5vw, 0.95rem);
+        letter-spacing: 0.22em;
+        color: var(--cream);
+        font-weight: 600;
+        text-transform: uppercase;
+        animation: fadeDown 0.9s 0.22s ease both;
+      }
+      .hero-divider {
+        width: 80px;
+        height: 1px;
+        margin: 18px auto;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        animation: fadeDown 0.9s 0.28s ease both;
+      }
+      .hero-verse {
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: clamp(1rem, 2.1vw, 1.26rem);
+        color: var(--cream);
+        max-width: 520px;
+        margin-inline: auto;
+        line-height: 1.8;
+        animation: fadeDown 1s 0.34s ease both;
+      }
+      .hero-ref {
+        margin-top: 10px;
+        font-family: "Cinzel", serif;
+        font-size: 0.66rem;
+        letter-spacing: 0.22em;
+        color: var(--gold-lt);
+        opacity: 0.9;
+        animation: fadeDown 1s 0.44s ease both;
+      }
+      .scroll-hint {
+        position: absolute;
+        bottom: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font-family: "Cinzel", serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.28em;
+        color: var(--muted);
+        text-transform: uppercase;
+        animation: bounce 2.8s ease infinite;
+      }
+      .scroll-hint::after {
+        content: "";
+        width: 1px;
+        height: 38px;
+        background: linear-gradient(to bottom, var(--gold), transparent);
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(10px);
+        }
+      }
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ─── DIVIDER ─── */
+      .divider {
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--blood),
+          var(--gold),
+          var(--blood),
+          transparent
+        );
+        box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+      }
+
+      /* ─── SECTION UTILS ─── */
+      section {
+        position: relative;
+        overflow: hidden;
+      }
+      .section-label {
+        font-family: "Cinzel", serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.44em;
+        color: var(--gold-lt);
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+          opacity 0.7s,
+          transform 0.7s;
+      }
+      .section-label.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(1.6rem, 3.4vw, 3rem);
+        color: var(--parchment);
+        line-height: 1.2;
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.8s 0.1s,
+          transform 0.8s 0.1s;
+      }
+      .section-title.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .section-title em {
+        color: var(--gold-lt);
+        font-style: normal;
+      }
+
+      .prose {
+        font-size: 1.1rem;
+        line-height: 1.9;
+        color: var(--cream);
+        font-weight: 400;
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.8s 0.2s,
+          transform 0.8s 0.2s;
+      }
+      .prose.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .prose p {
+        margin-bottom: 1.1em;
+      }
+      .prose strong {
+        color: var(--gold-lt);
+        font-weight: 600;
+      }
+
+      .anim {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.8s,
+          transform 0.8s;
+      }
+      .anim.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ─── TRUTH ─── */
+      #truth {
+        padding: 100px 5vw;
+        background: linear-gradient(180deg, #050205 0%, #0d0508 100%);
+        text-align: center;
+      }
+      .truth-inner {
+        max-width: 840px;
+        margin: 0 auto;
+      }
+      .truth-big {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(1.4rem, 3.1vw, 2.4rem);
+        color: var(--parchment);
+        line-height: 1.38;
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 1s,
+          transform 1s;
+      }
+      .truth-big.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .truth-big span {
+        color: var(--gold-lt);
+      }
+      .truth-verse {
+        display: inline-block;
+        border-left: 3px solid var(--crimson);
+        padding: 20px 28px;
+        text-align: left;
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 1.22rem;
+        line-height: 1.8;
+        color: var(--parchment);
+        background: rgba(139, 0, 0, 0.09);
+      }
+      .truth-verse cite {
+        display: block;
+        margin-top: 10px;
+        font-style: normal;
+        font-family: "Cinzel", serif;
+        font-size: 0.66rem;
+        letter-spacing: 0.22em;
+        color: var(--gold-lt);
+      }
+      .truth-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 38px;
+      }
+      .pill {
+        font-family: "Cinzel", serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        padding: 9px 20px;
+        border: 1px solid rgba(201, 165, 90, 0.35);
+        color: var(--cream);
+        text-transform: uppercase;
+        transition:
+          background 0.3s,
+          border-color 0.3s,
+          transform 0.2s;
+      }
+      .pill:hover {
+        background: rgba(201, 165, 90, 0.1);
+        border-color: rgba(201, 165, 90, 0.7);
+        transform: translateY(-2px);
+      }
+
+      /* ─── WHAT ─── */
+      #what {
+        padding: 100px 5vw;
+        background: linear-gradient(180deg, #0d0508 0%, #0a0305 100%);
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: start;
+        max-width: 1160px;
+        margin: 0 auto;
+      }
+      .pull-quote {
+        border-left: 3px solid var(--crimson);
+        padding: 24px 28px;
+        background: rgba(139, 0, 0, 0.09);
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 1.24rem;
+        line-height: 1.75;
+        color: var(--parchment);
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.8s 0.3s,
+          transform 0.8s 0.3s;
+      }
+      .pull-quote.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .pull-quote cite {
+        display: block;
+        margin-top: 12px;
+        font-size: 0.7rem;
+        font-style: normal;
+        font-family: "Cinzel", serif;
+        letter-spacing: 0.14em;
+        color: var(--gold-lt);
+      }
+
+      /* ─── STATIONS / TIMELINE ─── */
+      #stations {
+        padding: 100px 5vw;
+        background: linear-gradient(180deg, #0a0305 0%, #0d0508 100%);
+      }
+      .stations-header {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 64px;
+      }
+      .timeline {
+        position: relative;
+        max-width: 840px;
+        margin: 0 auto;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        transform: translateX(-50%);
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--blood),
+          var(--crimson),
+          var(--blood),
+          transparent
+        );
+        box-shadow: 0 0 14px rgba(139, 0, 0, 0.6);
+      }
+      .station {
+        display: grid;
+        grid-template-columns: 1fr 56px 1fr;
+        margin-bottom: 52px;
+        align-items: center;
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.8s,
+          transform 0.8s;
+      }
+      .station.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .station:nth-child(odd) .station-text {
+        grid-column: 1;
+        text-align: right;
+        padding-right: 30px;
+      }
+      .station:nth-child(odd) .station-num {
+        grid-column: 2;
+      }
+      .station:nth-child(odd) .station-empty {
+        grid-column: 3;
+      }
+      .station:nth-child(even) .station-empty {
+        grid-column: 1;
+      }
+      .station:nth-child(even) .station-num {
+        grid-column: 2;
+      }
+      .station:nth-child(even) .station-text {
+        grid-column: 3;
+        text-align: left;
+        padding-left: 30px;
+      }
+
+      .station-num {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--crimson);
+        border: 2px solid var(--gold-lt);
+        font-family: "Cinzel", serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--gold-lt);
+        box-shadow:
+          0 0 20px rgba(139, 0, 0, 0.8),
+          0 0 40px rgba(139, 0, 0, 0.25);
+        margin: 0 auto;
+        z-index: 2;
+        position: relative;
+        flex-shrink: 0;
+        transition: box-shadow 0.3s;
+      }
+      .station:hover .station-num {
+        box-shadow:
+          0 0 30px rgba(201, 165, 90, 0.6),
+          0 0 60px rgba(139, 0, 0, 0.4);
+      }
+      .station-text h3 {
+        font-family: "Cinzel", serif;
+        font-size: 0.92rem;
+        letter-spacing: 0.07em;
+        color: var(--gold-lt);
+        margin-bottom: 8px;
+      }
+      .station-text p {
+        font-size: 0.98rem;
+        line-height: 1.75;
+        color: var(--cream);
+      }
+      .station-text p em {
+        color: var(--parchment);
+        font-style: italic;
+      }
+      .station-text p strong {
+        color: var(--gold-lt);
+      }
+      .station-empty {
+        min-height: 1px;
+      }
+
+      /* ─── MEANING CARDS ─── */
+      #meaning {
+        padding: 100px 5vw;
+        background: linear-gradient(180deg, #0d0508 0%, #050205 100%);
+      }
+      .meaning-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        max-width: 1080px;
+        margin: 56px auto 0;
+      }
+      .m-card {
+        padding: 42px 30px;
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(201, 165, 90, 0.12);
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.8s,
+          transform 0.8s,
+          background 0.3s,
+          border-color 0.3s,
+          box-shadow 0.3s;
+      }
+      .m-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .m-card:hover {
+        background: rgba(139, 0, 0, 0.1);
+        border-color: rgba(201, 165, 90, 0.3);
+        box-shadow: 0 0 40px rgba(139, 0, 0, 0.2);
+      }
+      .m-icon {
+        font-size: 2.1rem;
+        margin-bottom: 18px;
+        display: block;
+      }
+      .m-card h3 {
+        font-family: "Cinzel", serif;
+        font-size: 0.86rem;
+        letter-spacing: 0.12em;
+        color: var(--gold-lt);
+        margin-bottom: 13px;
+        text-transform: uppercase;
+      }
+      .m-card p {
+        font-size: 0.98rem;
+        line-height: 1.85;
+        color: var(--cream);
+      }
+      .m-verse {
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(201, 165, 90, 0.15);
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 0.96rem;
+        color: var(--muted);
+      }
+      .m-verse span {
+        display: block;
+        margin-top: 5px;
+        font-style: normal;
+        font-family: "Cinzel", serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        color: var(--gold-lt);
+      }
+
+      /* ─── VERSES ─── */
+      #verses {
+        padding: 100px 5vw;
+        background: linear-gradient(180deg, #050205 0%, #0a0305 100%);
+      }
+      .verses-header {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 52px;
+      }
+      .verses-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 22px;
+        max-width: 1160px;
+        margin: 0 auto;
+      }
+      .verse-card {
+        background: linear-gradient(
+          135deg,
+          rgba(201, 165, 90, 0.07) 0%,
+          rgba(139, 0, 0, 0.07) 100%
+        );
+        border: 1px solid rgba(201, 165, 90, 0.16);
+        padding: 36px 30px;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.8s,
+          transform 0.8s,
+          box-shadow 0.4s,
+          border-color 0.4s,
+          background 0.4s;
+      }
+      .verse-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .verse-card:hover {
+        box-shadow:
+          0 14px 50px rgba(139, 0, 0, 0.25),
+          0 0 30px rgba(201, 165, 90, 0.08);
+        border-color: rgba(201, 165, 90, 0.38);
+        background: linear-gradient(
+          135deg,
+          rgba(201, 165, 90, 0.1) 0%,
+          rgba(139, 0, 0, 0.12) 100%
+        );
+      }
+      .verse-card::before {
+        content: "\201C";
+        position: absolute;
+        top: -12px;
+        left: 14px;
+        font-family: "Cinzel Decorative", serif;
+        font-size: 5.5rem;
+        color: var(--crimson);
+        opacity: 0.14;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .verse-text {
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 1.14rem;
+        line-height: 1.85;
+        color: var(--parchment);
+        position: relative;
+        z-index: 1;
+      }
+      .verse-ref {
+        margin-top: 14px;
+        font-family: "Cinzel", serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.24em;
+        color: var(--gold-lt);
+        text-transform: uppercase;
+      }
+
+      /* ─── TESTAMENT ─── */
+      #testament {
+        padding: 100px 5vw;
+        text-align: center;
+        background:
+          radial-gradient(
+            ellipse at center,
+            rgba(139, 0, 0, 0.2) 0%,
+            transparent 70%
+          ),
+          #050205;
+        position: relative;
+      }
+      #testament::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23C9A55A' fill-opacity='0.035'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      .testament-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      .testament-inner blockquote {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(1.25rem, 3vw, 2.3rem);
+        line-height: 1.6;
+        color: var(--parchment);
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 1s,
+          transform 1s;
+      }
+      .testament-inner blockquote.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .testament-inner blockquote em {
+        color: var(--gold-lt);
+        font-style: normal;
+      }
+      .testament-ref {
+        margin-top: 20px;
+        font-family: "Cinzel", serif;
+        font-size: 0.74rem;
+        letter-spacing: 0.32em;
+        color: var(--gold-lt);
+        opacity: 0;
+        transition: opacity 1s 0.3s;
+      }
+      .testament-ref.visible {
+        opacity: 0.9;
+      }
+      .testament-line {
+        width: 90px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        margin: 24px auto;
+      }
+      .testament-sub {
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 1.12rem;
+        color: var(--cream);
+        line-height: 1.8;
+        max-width: 580px;
+        margin: 0 auto;
+        opacity: 0;
+        transition: opacity 1s 0.5s;
+      }
+      .testament-sub.visible {
+        opacity: 1;
+      }
+
+      /* ─── PRAYER ─── */
+      #prayer {
+        padding: 110px 5vw;
+        background: linear-gradient(180deg, #0a0205 0%, #050205 100%);
+      }
+      .prayer-inner {
+        max-width: 680px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .prayer-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+      .prayer-icon .v {
+        width: 3px;
+        height: 52px;
+        background: linear-gradient(to bottom, var(--gold-lt), var(--crimson));
+        box-shadow: 0 0 16px rgba(201, 165, 90, 0.45);
+      }
+      .prayer-icon .h {
+        width: 32px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--gold-lt), var(--crimson));
+        box-shadow: 0 0 16px rgba(201, 165, 90, 0.45);
+      }
+      .prayer-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(1.6rem, 3.4vw, 2.8rem);
+        color: var(--parchment);
+        margin-bottom: 24px;
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.9s,
+          transform 0.9s;
+      }
+      .prayer-title.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .prayer-title em {
+        color: var(--gold-lt);
+        font-style: normal;
+      }
+      .prayer-text {
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 1.14rem;
+        line-height: 1.9;
+        color: var(--cream);
+        margin-bottom: 38px;
+        opacity: 0;
+        transition: opacity 0.9s 0.2s;
+      }
+      .prayer-text.visible {
+        opacity: 1;
+      }
+      .prayer-btn {
+        display: inline-block;
+        padding: 16px 46px;
+        font-family: "Cinzel", serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--black);
+        background: var(--gold);
+        border: none;
+        text-decoration: none;
+        opacity: 0;
+        transition:
+          opacity 0.9s 0.4s,
+          background 0.3s,
+          transform 0.2s,
+          box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .prayer-btn::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.18),
+          transparent
+        );
+        transform: translateX(-100%);
+        transition: transform 0.5s;
+      }
+      .prayer-btn:hover::after {
+        transform: translateX(100%);
+      }
+      .prayer-btn.visible {
+        opacity: 1;
+      }
+      .prayer-btn:hover {
+        background: var(--gold-lt);
+        box-shadow: 0 10px 40px rgba(201, 165, 90, 0.45);
+        transform: translateY(-3px);
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        padding: 52px 5vw 36px;
+        background: #030103;
+        text-align: center;
+        border-top: 1px solid rgba(201, 165, 90, 0.12);
+      }
+      .f-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.05rem;
+        color: var(--gold-lt);
+        margin-bottom: 14px;
+      }
+      footer .f-verse {
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 1.05rem;
+        color: rgba(240, 208, 128, 0.6);
+        margin: 14px 0 12px;
+      }
+      footer p {
+        font-family: "Cinzel", serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        color: var(--muted);
+        line-height: 2.2;
+      }
+
+      /* ─── MODAL ─── */
+      #modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9990;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      #modal-overlay.open {
+        display: flex;
+        animation: fadeIn 0.35s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .modal {
+        background: linear-gradient(160deg, #0d0508, #050205);
+        border: 1px solid rgba(201, 165, 90, 0.25);
+        max-width: 600px;
+        width: 100%;
+        padding: 52px 44px;
+        position: relative;
+        box-shadow:
+          0 50px 140px rgba(0, 0, 0, 0.9),
+          0 0 80px rgba(139, 0, 0, 0.2);
+        animation: modalSlide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes modalSlide {
+        from {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      .modal-close {
+        position: absolute;
+        top: 18px;
+        right: 22px;
+        background: none;
+        border: none;
+        color: var(--ash);
+        font-size: 1.3rem;
+        transition: color 0.2s;
+      }
+      .modal-close:hover {
+        color: var(--gold-lt);
+      }
+      .modal h2 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.5rem;
+        color: var(--gold-lt);
+        margin-bottom: 6px;
+      }
+      .modal .modal-sub {
+        font-family: "Cinzel", serif;
+        font-size: 0.66rem;
+        letter-spacing: 0.22em;
+        color: var(--muted);
+        margin-bottom: 28px;
+      }
+      .modal p {
+        font-family: "EB Garamond", serif;
+        font-style: italic;
+        font-size: 1.1rem;
+        line-height: 1.9;
+        color: var(--parchment);
+        margin-bottom: 1em;
+      }
+      .modal .modal-ref {
+        margin-top: 20px;
+        font-family: "Cinzel", serif;
+        font-size: 0.64rem;
+        letter-spacing: 0.2em;
+        color: var(--gold-lt);
+        opacity: 0.7;
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 860px) {
+        .two-col {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        .meaning-cards {
+          grid-template-columns: 1fr;
+        }
+        .timeline::before {
+          left: 19px;
+        }
+        .station {
+          grid-template-columns: 40px 1fr;
+        }
+        .station .station-num {
+          grid-column: 1 !important;
+        }
+        .station .station-text,
+        .station:nth-child(odd) .station-text,
+        .station:nth-child(even) .station-text {
+          grid-column: 2 !important;
+          text-align: left !important;
+          padding-left: 16px !important;
+          padding-right: 0 !important;
+        }
+        .station .station-empty,
+        .station:nth-child(odd) .station-empty,
+        .station:nth-child(even) .station-empty {
+          display: none !important;
+        }
+        nav {
+          padding: 14px 20px;
+        }
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(5, 2, 5, 0.98);
+          padding: 20px 24px;
+          gap: 16px;
+          border-bottom: 1px solid rgba(201, 165, 90, 0.12);
+        }
+        .nav-links.open {
+          display: flex;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .modal {
+          padding: 36px 24px;
+        }
+      }
+      @media (max-width: 500px) {
+        .verses-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="loading">
+    <!-- CURSOR -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <div id="cursor-trail"></div>
+
+    <!-- RIPPLE CANVAS -->
+    <canvas id="ripple-canvas"></canvas>
+
+    <!-- ════════════════════════ LOADER ════════════════════════ -->
+    <div id="loader">
+      <div class="loader-cross">
+        <div class="lv"></div>
+        <div class="lh"></div>
+        <div class="inri">I N R I</div>
+      </div>
+      <div class="loader-verse">
+        "For God so loved the world that He gave His one and only Son…"
+      </div>
+      <div class="loader-ref">John 3:16</div>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav id="main-nav">
+      <div class="nav-logo">Good Friday</div>
+      <div class="nav-links" id="nav-links">
+        <a href="#truth">The Problem</a>
+        <a href="#what">What Happened</a>
+        <a href="#stations">His Journey</a>
+        <a href="#verses">Scripture</a>
+        <a href="#prayer">Respond</a>
+      </div>
+      <button
+        class="hamburger"
+        id="hamburger"
+        onclick="toggleMenu()"
+        aria-label="Menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- ════════════════════════ HERO ════════════════════════ -->
+    <section id="hero">
+      <div class="light-rays"></div>
+      <div id="particles"></div>
+      <div class="hero-cross-wrap">
+        <svg
+          class="hero-cross-svg"
+          viewBox="0 0 200 300"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect x="88" y="0" width="24" height="300" fill="#C9A55A" />
+          <rect x="0" y="76" width="200" height="24" fill="#C9A55A" />
+          <ellipse
+            cx="100"
+            cy="88"
+            rx="14"
+            ry="14"
+            fill="rgba(201,165,90,0.35)"
+          />
+          <text
+            x="100"
+            y="232"
+            text-anchor="middle"
+            fill="rgba(201,165,90,0.4)"
+            font-size="12"
+            font-family="serif"
+            letter-spacing="3"
+          >
+            INRI
+          </text>
+        </svg>
+      </div>
+      <div class="hero-vignette"></div>
+      <div class="hero-content">
+        <p class="hero-tag">The Day That Changed Everything</p>
+        <h1 class="hero-title">Good<br /><span>Friday</span></h1>
+        <p class="hero-sub">He Died &middot; That We May Live</p>
+        <div class="hero-divider"></div>
+        <p class="hero-verse">
+          "For God so loved the world that He gave His one and only Son,<br />
+          that whoever believes in Him shall not perish but have eternal life."
+        </p>
+        <p class="hero-ref">— John 3:16</p>
+      </div>
+      <div class="scroll-hint">Scroll</div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════ THE PROBLEM ════════════════════════ -->
+    <section id="truth">
+      <div class="truth-inner">
+        <p class="section-label" style="text-align: center">
+          The Universal Problem
+        </p>
+        <h2 class="truth-big">
+          Every human being — religious or not —<br />
+          <span>has sinned and fallen short of God.</span>
+        </h2>
+        <div
+          class="prose"
+          style="text-align: center; max-width: 680px; margin: 0 auto 30px"
+        >
+          <p>
+            Sin is not merely murder or theft. Sin is any thought, word, or
+            action that falls short of God's perfect standard — pride, jealousy,
+            lies, selfishness, hatred. The honest truth is:
+            <strong>every person who has ever lived has sinned.</strong>
+            Every culture. Every religion. No exceptions.
+          </p>
+        </div>
+        <div class="truth-verse anim">
+          "For all have sinned and fall short of the glory of God."
+          <cite>— Romans 3:23</cite>
+        </div>
+        <div class="truth-pills">
+          <div class="pill anim" style="transition-delay: 0.08s">
+            Every culture
+          </div>
+          <div class="pill anim" style="transition-delay: 0.16s">
+            Every religion
+          </div>
+          <div class="pill anim" style="transition-delay: 0.24s">
+            Every race
+          </div>
+          <div class="pill anim" style="transition-delay: 0.32s">
+            Every generation
+          </div>
+          <div class="pill anim" style="transition-delay: 0.4s">
+            Every person
+          </div>
+        </div>
+        <div
+          class="prose"
+          style="text-align: center; max-width: 660px; margin: 34px auto 0"
+        >
+          <p>
+            And sin carries a consequence:
+            <strong>"The wages of sin is death"</strong> — not only physical
+            death, but eternal separation from God. This is the problem Good
+            Friday answers.
+            <strong>That's exactly why Jesus came.</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════ WHAT IS GOOD FRIDAY ════════════════════════ -->
+    <section id="what">
+      <div class="two-col">
+        <div>
+          <p class="section-label">The Answer</p>
+          <h2 class="section-title">What is <em>Good Friday</em>?</h2>
+          <div class="prose" style="margin-top: 20px">
+            <p>
+              Good Friday is the day Christians solemnly remember the
+              <strong>crucifixion of Jesus Christ</strong> — the Son of God —
+              who willingly gave His life on a Roman cross outside Jerusalem
+              around 30 AD.
+            </p>
+            <p>
+              Why call a day of death <em>"Good"</em>? Because
+              <strong
+                >what looked like history's greatest tragedy was actually
+                history's greatest act of love.</strong
+              >
+              Jesus was not a victim. He walked to that cross knowingly,
+              willingly, and purposefully.
+            </p>
+            <p>
+              He took the punishment we deserved. He paid the debt we could
+              never pay. In doing so, He opened the door to eternal life for
+              every person who would believe.
+            </p>
+          </div>
+        </div>
+        <div>
+          <blockquote class="pull-quote">
+            "He was pierced for our transgressions, He was crushed for our
+            iniquities; the punishment that brought us peace was upon Him, and
+            by His wounds we are healed."
+            <cite>— Isaiah 53:5 (written 700 years before Jesus)</cite>
+          </blockquote>
+          <div class="prose" style="margin-top: 28px">
+            <p>
+              This is <strong>documented history</strong> — a real man, a real
+              cross, a real death — witnessed by hundreds and recorded by
+              historians of that era. Three days later, the tomb was empty.
+            </p>
+            <p>
+              No religion, background, or past disqualifies you.
+              <strong
+                >The invitation is open to every human being on earth.</strong
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════ STATIONS / TIMELINE ════════════════════════ -->
+    <section id="stations">
+      <div class="stations-header">
+        <p class="section-label" style="text-align: center">His Final Hours</p>
+        <h2 class="section-title" style="text-align: center">
+          The Journey to <em>Calvary</em>
+        </h2>
+        <p
+          class="prose"
+          style="text-align: center; max-width: 500px; margin: 20px auto 0"
+        >
+          From the garden to the grave — every step was taken for you.
+        </p>
+      </div>
+      <div class="timeline">
+        <div class="station">
+          <div class="station-num">I</div>
+          <div class="station-text">
+            <h3>The Garden of Gethsemane</h3>
+            <p>
+              Jesus knelt alone in agony, sweating drops like blood, and prayed:
+              <em
+                >"Father, if You are willing, take this cup from Me; yet not My
+                will, but Yours be done."</em
+              >
+              He chose the cross before a single nail was driven. — Luke
+              22:42–44
+            </p>
+          </div>
+          <div class="station-empty"></div>
+        </div>
+
+        <div class="station">
+          <div class="station-empty"></div>
+          <div class="station-num">II</div>
+          <div class="station-text">
+            <h3>Betrayal &amp; Trial</h3>
+            <p>
+              Judas betrayed Him with a kiss for thirty pieces of silver. Pilate
+              declared,
+              <em>"I find no basis for a charge against this man,"</em> yet
+              condemned Him to death to satisfy the crowd. The innocent stood
+              condemned so the guilty could go free. — Luke 23:4; John 18–19
+            </p>
+          </div>
+        </div>
+
+        <div class="station">
+          <div class="station-num">III</div>
+          <div class="station-text">
+            <h3>Flogging &amp; Crown of Thorns</h3>
+            <p>
+              Soldiers flogged Him severely, twisted together a crown of thorns
+              and pressed it onto His head, and mocked Him:
+              <em>"Hail, king of the Jews!"</em> He endured every blow in
+              silence. — Matthew 27:27–30; John 19:1–3
+            </p>
+          </div>
+          <div class="station-empty"></div>
+        </div>
+
+        <div class="station">
+          <div class="station-empty"></div>
+          <div class="station-num">IV</div>
+          <div class="station-text">
+            <h3>The Crucifixion</h3>
+            <p>
+              At nine in the morning they nailed Him to the cross between two
+              criminals. A sign was placed above His head:
+              <em>"JESUS OF NAZARETH, THE KING OF THE JEWS."</em> Even then He
+              prayed:
+              <em
+                >"Father, forgive them, for they do not know what they are
+                doing."</em
+              >
+              — Mark 15:25; Luke 23:34; John 19:19
+            </p>
+          </div>
+        </div>
+
+        <div class="station">
+          <div class="station-num">V</div>
+          <div class="station-text">
+            <h3>"It Is Finished"</h3>
+            <p>
+              At three in the afternoon, darkness covered the land, the earth
+              shook, and the temple curtain was torn in two from top to bottom.
+              Jesus cried: <em>"It is finished."</em> And He bowed His head and
+              gave up His spirit. The debt of every human sin —
+              <strong>paid in full.</strong> — John 19:30; Matthew 27:51
+            </p>
+          </div>
+          <div class="station-empty"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════ WHY IT MATTERS ════════════════════════ -->
+    <section id="meaning">
+      <div style="max-width: 1080px; margin: 0 auto">
+        <div style="text-align: center; max-width: 640px; margin: 0 auto 20px">
+          <p class="section-label" style="text-align: center">
+            Why It Matters To You
+          </p>
+          <h2 class="section-title" style="text-align: center">
+            The Problem, The Answer, <em>The Gift</em>
+          </h2>
+        </div>
+        <div class="meaning-cards">
+          <div class="m-card" style="transition-delay: 0s">
+            <span class="m-icon">⚖️</span>
+            <h3>The Problem: Sin</h3>
+            <p>
+              Every human has sinned and is separated from God. No amount of
+              good works can erase this debt. The consequence is spiritual death
+              — eternal separation from the God who made us and loves us.
+            </p>
+            <div class="m-verse">
+              "The wages of sin is death."
+              <span>Romans 6:23a</span>
+            </div>
+          </div>
+          <div class="m-card" style="transition-delay: 0.15s">
+            <span class="m-icon">✝️</span>
+            <h3>The Answer: The Cross</h3>
+            <p>
+              God did not leave us without hope. He sent His own Son — sinless
+              and perfect — to bear our punishment. Jesus died the death we
+              deserved and rose on the third day, defeating sin and death
+              forever.
+            </p>
+            <div class="m-verse">
+              "While we were still sinners, Christ died for us."
+              <span>Romans 5:8</span>
+            </div>
+          </div>
+          <div class="m-card" style="transition-delay: 0.3s">
+            <span class="m-icon">🕊️</span>
+            <h3>The Gift: New Life</h3>
+            <p>
+              This is not religion — it is relationship. By believing and
+              turning to Jesus, you receive full forgiveness, peace with God,
+              and eternal life. The gift is completely free. It requires only
+              faith.
+            </p>
+            <div class="m-verse">
+              "The gift of God is eternal life in Christ Jesus our Lord."
+              <span>Romans 6:23b</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════ KEY VERSES ════════════════════════ -->
+    <section id="verses">
+      <div class="verses-header">
+        <p class="section-label" style="text-align: center">The Living Word</p>
+        <h2 class="section-title" style="text-align: center">
+          What <em>Scripture</em> Says
+        </h2>
+        <p
+          class="prose"
+          style="text-align: center; max-width: 480px; margin: 18px auto 0"
+        >
+          These words have changed millions of lives. Read them slowly.
+        </p>
+      </div>
+      <div class="verses-grid">
+        <div class="verse-card" style="transition-delay: 0s">
+          <p class="verse-text">
+            "For God so loved the world that He gave His one and only Son, that
+            whoever believes in Him shall not perish but have eternal life."
+          </p>
+          <p class="verse-ref">John 3:16</p>
+        </div>
+        <div class="verse-card" style="transition-delay: 0.1s">
+          <p class="verse-text">
+            "But God demonstrates His own love for us in this: While we were
+            still sinners, Christ died for us."
+          </p>
+          <p class="verse-ref">Romans 5:8</p>
+        </div>
+        <div class="verse-card" style="transition-delay: 0.2s">
+          <p class="verse-text">
+            "For the wages of sin is death, but the gift of God is eternal life
+            in Christ Jesus our Lord."
+          </p>
+          <p class="verse-ref">Romans 6:23</p>
+        </div>
+        <div class="verse-card" style="transition-delay: 0.3s">
+          <p class="verse-text">
+            "If you declare with your mouth, 'Jesus is Lord,' and believe in
+            your heart that God raised Him from the dead, you will be saved."
+          </p>
+          <p class="verse-ref">Romans 10:9</p>
+        </div>
+        <div class="verse-card" style="transition-delay: 0.4s">
+          <p class="verse-text">
+            "Jesus said to him, 'I am the way, and the truth, and the life. No
+            one comes to the Father except through Me.'"
+          </p>
+          <p class="verse-ref">John 14:6</p>
+        </div>
+        <div class="verse-card" style="transition-delay: 0.5s">
+          <p class="verse-text">
+            "Come to Me, all who are weary and burdened, and I will give you
+            rest."
+          </p>
+          <p class="verse-ref">Matthew 11:28</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ISAIAH -->
+    <section id="testament">
+      <div class="testament-inner">
+        <blockquote>
+          "He was <em>wounded</em> for our transgressions — <em>crushed</em> for
+          our iniquities. The punishment that brought us peace was upon Him, and
+          by His stripes <em>we are healed.</em>"
+        </blockquote>
+        <p class="testament-ref">ISAIAH 53:5</p>
+        <div class="testament-line"></div>
+        <p class="testament-sub">
+          Written 700 years before Jesus walked the earth. Prophecy fulfilled to
+          the letter — in flesh, in blood, on a cross. For you.
+        </p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════ PRAYER ════════════════════════ -->
+    <section id="prayer">
+      <div class="prayer-inner">
+        <div class="prayer-icon">
+          <div class="v"></div>
+          <div class="h"></div>
+        </div>
+        <h2 class="prayer-title">This Was Done <em>For You</em></h2>
+        <p class="prayer-text">
+          You don't need a church, a priest, or a religious background. Right
+          now, wherever you are, you can turn to Jesus. Believe that He died for
+          your sins and rose from the dead. That is the moment everything
+          changes.
+        </p>
+        <a href="#" class="prayer-btn" id="prayer-btn-link">
+          Pray the Sinner's Prayer
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="f-title">Good Friday</div>
+      <p class="f-verse">
+        "I am the resurrection and the life. The one who believes in Me will
+        live, even though they die." — John 11:25
+      </p>
+      <p>He Died &middot; He Rose &middot; He Is Coming Again</p>
+    </footer>
+
+    <!-- MODAL -->
+    <div id="modal-overlay">
+      <div class="modal">
+        <button class="modal-close" id="modal-close-btn">✕</button>
+        <h2>A Prayer of Faith</h2>
+        <p class="modal-sub">Speak from your heart. God hears every word.</p>
+        <p>
+          "Lord Jesus, I know that I am a sinner and that I need You. I believe
+          that You died on the cross for my sins and rose again from the dead on
+          the third day. I turn from my sin today and I invite You into my heart
+          and life as my Lord and Saviour."
+        </p>
+        <p>
+          "Thank You for Your forgiveness and the gift of eternal life. Help me
+          to follow You from this day forward. In Your name I pray. Amen."
+        </p>
+        <p class="modal-ref">
+          Romans 10:9–10 &middot; John 3:16 &middot; 1 John 1:9
+        </p>
+      </div>
+    </div>
+
+    <script>
+      /* ═══════════════════════════════════════════
+   LOADER
+═══════════════════════════════════════════ */
+      const loaderBar = document.getElementById("loader-bar");
+      const loaderEl = document.getElementById("loader");
+      let prog = 0;
+      const interval = setInterval(() => {
+        prog += Math.random() * 18 + 4;
+        if (prog >= 100) {
+          prog = 100;
+          clearInterval(interval);
+        }
+        loaderBar.style.width = prog + "%";
+        if (prog >= 100) {
+          setTimeout(() => {
+            loaderEl.classList.add("hide");
+            document.body.classList.remove("loading");
+          }, 500);
+        }
+      }, 120);
+
+      /* ═══════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════ */
+      const dot = document.getElementById("cursor-dot");
+      const ring = document.getElementById("cursor-ring");
+      const trail = document.getElementById("cursor-trail");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0,
+        tx = 0,
+        ty = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.left = mx + "px";
+        dot.style.top = my + "px";
+      });
+
+      function animCursor() {
+        rx += (mx - rx) * 0.14;
+        ry += (my - ry) * 0.14;
+        tx += (mx - tx) * 0.07;
+        ty += (my - ty) * 0.07;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        trail.style.left = tx + "px";
+        trail.style.top = ty + "px";
+        requestAnimationFrame(animCursor);
+      }
+      animCursor();
+
+      document
+        .querySelectorAll(
+          "a,button,.pill,.verse-card,.m-card,.station,.prayer-btn",
+        )
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () =>
+            document.body.classList.add("cursor-hover"),
+          );
+          el.addEventListener("mouseleave", () =>
+            document.body.classList.remove("cursor-hover"),
+          );
+        });
+      document.addEventListener("mousedown", () =>
+        document.body.classList.add("cursor-click"),
+      );
+      document.addEventListener("mouseup", () =>
+        document.body.classList.remove("cursor-click"),
+      );
+
+      /* ═══════════════════════════════════════════
+   RIPPLE CANVAS — cursor leaves blood/gold ripples
+═══════════════════════════════════════════ */
+      const canvas = document.getElementById("ripple-canvas");
+      const ctx = canvas.getContext("2d");
+      let ripples = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      let lastRippleTime = 0;
+      document.addEventListener("mousemove", (e) => {
+        const now = Date.now();
+        if (now - lastRippleTime > 80) {
+          lastRippleTime = now;
+          ripples.push({
+            x: e.clientX,
+            y: e.clientY,
+            r: 0,
+            alpha: 0.22,
+            color: Math.random() > 0.6 ? "201,165,90" : "139,0,0",
+          });
+        }
+      });
+
+      function animRipples() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ripples = ripples.filter((r) => r.alpha > 0.005);
+        ripples.forEach((r) => {
+          ctx.beginPath();
+          ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${r.color},${r.alpha})`;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          r.r += 1.6;
+          r.alpha *= 0.93;
+        });
+        requestAnimationFrame(animRipples);
+      }
+      animRipples();
+
+      /* ═══════════════════════════════════════════
+   HERO PARALLAX (cross & rays move with mouse)
+═══════════════════════════════════════════ */
+      const heroSection = document.getElementById("hero");
+      const heroCrossWrap = document.querySelector(".hero-cross-wrap");
+      const lightRays = document.querySelector(".light-rays");
+
+      document.addEventListener("mousemove", (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        if (e.clientY < rect.bottom) {
+          const cx = (e.clientX / window.innerWidth - 0.5) * 22;
+          const cy = (e.clientY / window.innerHeight - 0.5) * 14;
+          heroCrossWrap.style.transform = `translate(calc(-50% + ${cx}px), calc(-56% + ${cy}px))`;
+          lightRays.style.transform = `translateX(calc(-50% + ${cx * 0.5}px))`;
+        }
+      });
+
+      /* ═══════════════════════════════════════════
+   NAV SCROLL
+═══════════════════════════════════════════ */
+      const nav = document.getElementById("main-nav");
+      window.addEventListener(
+        "scroll",
+        () => nav.classList.toggle("scrolled", window.scrollY > 60),
+        { passive: true },
+      );
+
+      function toggleMenu() {
+        document.getElementById("nav-links").classList.toggle("open");
+      }
+      document.querySelectorAll(".nav-links a").forEach((a) => {
+        a.addEventListener("click", () =>
+          document.getElementById("nav-links").classList.remove("open"),
+        );
+      });
+
+      /* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(
+          ".section-label,.section-title,.prose,.pull-quote,.station,.verse-card,.m-card,.truth-big,.anim,blockquote,.testament-ref,.testament-sub,.prayer-title,.prayer-text,.prayer-btn,.pill",
+        )
+        .forEach((el) => obs.observe(el));
+
+      /* ═══════════════════════════════════════════
+   HERO PARTICLES
+═══════════════════════════════════════════ */
+      const pContainer = document.getElementById("particles");
+      for (let i = 0; i < 34; i++) {
+        const d = document.createElement("div");
+        d.className = "p-dot";
+        const s = Math.random() * 2.6 + 0.6;
+        d.style.cssText = `width:${s}px;height:${s}px;left:${Math.random() * 100}%;animation-duration:${Math.random() * 14 + 8}s;animation-delay:${Math.random() * 12}s;`;
+        pContainer.appendChild(d);
+      }
+
+      /* ═══════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════ */
+      document
+        .getElementById("prayer-btn-link")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          document.getElementById("modal-overlay").classList.add("open");
+        });
+      document
+        .getElementById("modal-close-btn")
+        .addEventListener("click", () => {
+          document.getElementById("modal-overlay").classList.remove("open");
+        });
+      document
+        .getElementById("modal-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) this.classList.remove("open");
+        });
+
+      /* ═══════════════════════════════════════════
+   VERSE CARD TILT ON HOVER
+═══════════════════════════════════════════ */
+      document.querySelectorAll(".verse-card,.m-card").forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          const r = card.getBoundingClientRect();
+          const cx = (e.clientX - r.left) / r.width - 0.5;
+          const cy = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = `perspective(600px) rotateY(${cx * 7}deg) rotateX(${-cy * 6}deg) translateZ(6px)`;
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.transform =
+            "perspective(600px) rotateY(0) rotateX(0) translateZ(0)";
+        });
+      });
+
+      /* ═══════════════════════════════════════════
+   STATION HOVER GLOW EFFECT
+═══════════════════════════════════════════ */
+      document.querySelectorAll(".station").forEach((s) => {
+        s.addEventListener(
+          "mouseenter",
+          () => (s.style.transform = "translateY(-4px)"),
+        );
+        s.addEventListener(
+          "mouseleave",
+          () => (s.style.transform = "translateY(0)"),
+        );
+      });
+    </script>
+  </body>
+</html>
